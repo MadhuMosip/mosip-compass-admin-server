@@ -25,3 +25,11 @@ r
 Bsrc/main/java/io/mosip/certify/exception/AdminServerException.java,d\4\d451e42dc791b53a0b3d89bf0519e7603ee6afc4
 Y
 )src/main/resources/application.properties,0\6\06f65155ec73600b9fc5c4dc2883d4bb84d8e284
+i
+9src/main/java/io/mosip/certify/config/SecurityConfig.java,7\8\7810a8603d9ab136cc9f8b89a67be9eb1af0dee9
+v
+Fsrc/main/java/io/mosip/certify/config/JwtAuthenticationEntryPoint.java,1\1\11141a4235b8f7462324042cc28d38013d605aa9
+v
+Fsrc/main/java/io/mosip/certify/filter/AccessTokenValidationFilter.java,1\9\19d9c26897f385b72c2dd886c0230688bc3db7e5
+i
+9src/main/java/io/mosip/certify/dto/ParsedAccessToken.java,7\b\7bbd993cf84a83200749a4b24482c883092a49b7
