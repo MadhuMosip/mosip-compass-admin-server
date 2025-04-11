@@ -49,8 +49,8 @@ public class AccessTokenValidationFilter extends OncePerRequestFilter {
 
     private NimbusJwtDecoder nimbusJwtDecoder;
 
-    @Value("#{${mosip.admin-server.authn.required-roles}}")
-    private List<String> requiredRoles;
+//    @Value("#{${mosip.admin-server.authn.required-roles}}")
+//    private List<String> requiredRoles;
 
 
     private boolean isJwt(String token) {
@@ -131,59 +131,59 @@ public class AccessTokenValidationFilter extends OncePerRequestFilter {
         }
     }
 
-    private boolean hasRequiredRole(Jwt jwt) {
-        if (requiredRoles == null || requiredRoles.isEmpty()) {
-            return true; // No roles required, access granted
-        }
-
-        // Extract roles from JWT
-        // Keycloak typically includes roles in realm_access.roles or resource_access.{client-id}.roles
-        Map<String, Object> claims = jwt.getClaims();
-
-        // Check for roles in realm_access.roles (most common location)
-        try {
-            Map<String, Object> realmAccess = (Map<String, Object>) claims.get("realm_access");
-            if (realmAccess != null) {
-                List<String> roles = (List<String>) realmAccess.get("roles");
-                if (roles != null) {
-                    for (String requiredRole : requiredRoles) {
-                        if (roles.contains(requiredRole)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            // If roles aren't found in realm_access, check resource_access
-            Map<String, Object> resourceAccess = (Map<String, Object>) claims.get("resource_access");
-            if (resourceAccess != null) {
-                // Iterate through all clients
-                for (Object clientObj : resourceAccess.values()) {
-                    Map<String, Object> client = (Map<String, Object>) clientObj;
-                    List<String> roles = (List<String>) client.get("roles");
-                    if (roles != null) {
-                        for (String requiredRole : requiredRoles) {
-                            if (roles.contains(requiredRole)) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Additional check for groups claim which sometimes contains roles
-            List<String> groups = (List<String>) claims.get("groups");
-            if (groups != null) {
-                for (String requiredRole : requiredRoles) {
-                    if (groups.contains(requiredRole)) {
-                        return true;
-                    }
-                }
-            }
-        } catch (ClassCastException e) {
-            log.error("Error parsing roles from JWT", e);
-        }
-
-        return false;
-    }
+//    private boolean hasRequiredRole(Jwt jwt) {
+//        if (requiredRoles == null || requiredRoles.isEmpty()) {
+//            return true; // No roles required, access granted
+//        }
+//
+//        // Extract roles from JWT
+//        // Keycloak typically includes roles in realm_access.roles or resource_access.{client-id}.roles
+//        Map<String, Object> claims = jwt.getClaims();
+//
+//        // Check for roles in realm_access.roles (most common location)
+//        try {
+//            Map<String, Object> realmAccess = (Map<String, Object>) claims.get("realm_access");
+//            if (realmAccess != null) {
+//                List<String> roles = (List<String>) realmAccess.get("roles");
+//                if (roles != null) {
+//                    for (String requiredRole : requiredRoles) {
+//                        if (roles.contains(requiredRole)) {
+//                            return true;
+//                        }
+//                    }
+//                }
+//            }
+//
+//            // If roles aren't found in realm_access, check resource_access
+//            Map<String, Object> resourceAccess = (Map<String, Object>) claims.get("resource_access");
+//            if (resourceAccess != null) {
+//                // Iterate through all clients
+//                for (Object clientObj : resourceAccess.values()) {
+//                    Map<String, Object> client = (Map<String, Object>) clientObj;
+//                    List<String> roles = (List<String>) client.get("roles");
+//                    if (roles != null) {
+//                        for (String requiredRole : requiredRoles) {
+//                            if (roles.contains(requiredRole)) {
+//                                return true;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//            // Additional check for groups claim which sometimes contains roles
+//            List<String> groups = (List<String>) claims.get("groups");
+//            if (groups != null) {
+//                for (String requiredRole : requiredRoles) {
+//                    if (groups.contains(requiredRole)) {
+//                        return true;
+//                    }
+//                }
+//            }
+//        } catch (ClassCastException e) {
+//            log.error("Error parsing roles from JWT", e);
+//        }
+//
+//        return false;
+//    }
 }

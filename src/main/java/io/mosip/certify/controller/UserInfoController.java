@@ -1,5 +1,6 @@
 package io.mosip.certify.controller;
 
+import io.mosip.certify.config.RequiresAdminAccess;
 import io.mosip.certify.dto.UserInfoDTO;
 import io.mosip.certify.dto.UserInfoResponseDTO;
 import io.mosip.certify.service.UserInfoService;
@@ -25,7 +26,7 @@ public class UserInfoController {
             summary = "Create a new user",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    @PreAuthorize("hasRole('admin')")
+    @RequiresAdminAccess
     @PostMapping
     public ResponseEntity<UserInfoResponseDTO> createUserInfo(@Valid @RequestBody UserInfoDTO userInfoDTO) {
         return new ResponseEntity<>(userInfoService.createUserInfo(userInfoDTO), HttpStatus.CREATED);
@@ -35,7 +36,7 @@ public class UserInfoController {
             summary = "Get user by national UID",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    @PreAuthorize("hasRole('admin')")
+    @RequiresAdminAccess
     @GetMapping("/{nationalUid}")
     public ResponseEntity<UserInfoDTO> getUserInfoByNationalUid(@PathVariable String nationalUid) {
         return ResponseEntity.ok(userInfoService.getUserInfoByNationalUid(nationalUid));
@@ -45,7 +46,7 @@ public class UserInfoController {
             summary = "Delete user",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    @PreAuthorize("hasRole('admin')")
+    @RequiresAdminAccess
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUserInfo(@PathVariable UUID id) {
         userInfoService.deleteUserInfo(id);
