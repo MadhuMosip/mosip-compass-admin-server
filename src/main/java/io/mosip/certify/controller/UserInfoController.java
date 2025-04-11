@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -29,7 +30,8 @@ public class UserInfoController {
     @RequiresAdminAccess
     @PostMapping
     public ResponseEntity<UserInfoResponseDTO> createUserInfo(@Valid @RequestBody UserInfoDTO userInfoDTO) {
-        return new ResponseEntity<>(userInfoService.createUserInfo(userInfoDTO), HttpStatus.CREATED);
+        UserInfoResponseDTO userInfoResponseDTO = userInfoService.createUserInfo(userInfoDTO);
+        return new ResponseEntity<>(userInfoResponseDTO, HttpStatus.CREATED);
     }
 
     @Operation(
@@ -39,7 +41,8 @@ public class UserInfoController {
     @RequiresAdminAccess
     @GetMapping("/{nationalUid}")
     public ResponseEntity<UserInfoDTO> getUserInfoByNationalUid(@PathVariable String nationalUid) {
-        return ResponseEntity.ok(userInfoService.getUserInfoByNationalUid(nationalUid));
+        UserInfoDTO userInfoDTO = userInfoService.getUserInfoByNationalUid(nationalUid);
+        return new ResponseEntity<>(userInfoDTO, HttpStatus.OK);
     }
 
     @Operation(
@@ -48,8 +51,30 @@ public class UserInfoController {
     )
     @RequiresAdminAccess
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUserInfo(@PathVariable UUID id) {
-        userInfoService.deleteUserInfo(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> deleteUserInfo(@PathVariable UUID id) {
+        String response = userInfoService.deleteUserInfo(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Get All Users",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    @RequiresAdminAccess
+    @GetMapping
+    public ResponseEntity<List<UserInfoDTO>> getAllUserInfo() {
+        List<UserInfoDTO> userInfoDTOList = userInfoService.getAllUsers();
+        return ResponseEntity.ok(userInfoDTOList);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteUsers(@RequestBody List<UUID> userInfoIds) {
+        try {
+            String response = userInfoService.deleteMultipleUsers(userInfoIds);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .body("Failed to delete users: " + e.getMessage());
+        }
     }
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.UUID;
 
@@ -85,6 +86,12 @@ public class UserInfo {
 
     @Column(name = "nationality")
     private String nationality;
+
+    @Column(name = "cr_dtimes")
+    private LocalDateTime createdTimes;
+
+    @Column(name = "upd_dtimes")
+    private LocalDateTime updatedTimes;
 
     @PrePersist
     public void generateId() {

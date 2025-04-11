@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -39,10 +40,30 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
+    public List<UserInfoDTO> getAllUsers() {
+        List<UserInfo> userInfoList = userInfoRepository.findAllByOrderByCreatedTimesDesc();
+        if(userInfoList.isEmpty()) {
+            throw new AdminServerException("No users found!");
+        }
+        List<UserInfoDTO> userInfoDTOList = userInfoMapper.toDtoList(userInfoList);
+
+        return userInfoDTOList;
+    }
+
+    @Override
     @Transactional
-    public void deleteUserInfo(UUID id) {
+    public String deleteMultipleUsers(List<UUID> userInfoIds) {
+        userInfoRepository.deleteAllByUserInfoIds(userInfoIds);
+        return "Users with all userInfoIds deleted";
+    }
+
+    @Override
+    @Transactional
+    public String deleteUserInfo(UUID id) {
         UserInfo userInfo = userInfoRepository.findById(id)
                 .orElseThrow(() -> new AdminServerException("UserInfo not found with National UID: " + id));
         userInfoRepository.delete(userInfo);
+
+        return "User deleted with userInfoId: " + id;
     }
 }
