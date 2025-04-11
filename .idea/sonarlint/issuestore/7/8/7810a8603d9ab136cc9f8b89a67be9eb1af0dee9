@@ -1,9 +1,5 @@
 
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8¢È™â2J$8ea35d1c-dd9a-413d-9112-efb846130ac4
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8¢È™â2J$de00d8bb-39ba-457e-b6bc-194a7707db96
 
-java:S3305"ZInject this field value directly into "securityFilterChain", the only method that uses it.(±Ğ²ş8£È™â2J$daf80cc4-889b-4aa1-b544-07b244ad7dce
-™
-java:S1128"QRemove this unused import 'org.springframework.core.convert.converter.Converter'.(’µ´×ÿÿÿÿÿ8§È™â2J$65f3eb23-9db8-4e28-a89b-1c8a53fa1ecc
-§
-java:S1128"dRemove this unused import 'org.springframework.security.authentication.AbstractAuthenticationToken'.(½³î«8§È™â2J$474e01fe-38c8-4e1a-bd41-f58754d1a1fd
+java:S3305"ZInject this field value directly into "securityFilterChain", the only method that uses it.(±Ğ²ş8£È™â2J$f83767aa-ea68-48db-b212-09c297854f8b

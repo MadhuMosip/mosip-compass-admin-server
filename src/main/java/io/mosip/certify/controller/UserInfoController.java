@@ -21,21 +21,21 @@ public class UserInfoController {
 
     private final UserInfoService userInfoService;
 
-//    @Operation(
-//            summary = "Create a new user",
-//            security = @SecurityRequirement(name = "bearerAuth")
-//    )
-//    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(
+            summary = "Create a new user",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    @PreAuthorize("hasRole('admin')")
     @PostMapping
     public ResponseEntity<UserInfoResponseDTO> createUserInfo(@Valid @RequestBody UserInfoDTO userInfoDTO) {
         return new ResponseEntity<>(userInfoService.createUserInfo(userInfoDTO), HttpStatus.CREATED);
     }
 
-//    @Operation(
-//            summary = "Get user by national UID",
-//            security = @SecurityRequirement(name = "bearerAuth")
-//    )
-//    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(
+            summary = "Get user by national UID",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    @PreAuthorize("hasRole('admin')")
     @GetMapping("/{nationalUid}")
     public ResponseEntity<UserInfoDTO> getUserInfoByNationalUid(@PathVariable String nationalUid) {
         return ResponseEntity.ok(userInfoService.getUserInfoByNationalUid(nationalUid));
@@ -45,7 +45,7 @@ public class UserInfoController {
             summary = "Delete user",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('admin')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUserInfo(@PathVariable UUID id) {
         userInfoService.deleteUserInfo(id);

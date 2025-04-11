@@ -1,5 +1,12 @@
 
 …
-java:S68132"BRemove this field injection and use constructor injection instead.(êæÄÞ8ÕÔ ™â2J$0a23c1e6-0427-40e3-bee8-1e453efc78fd
+java:S6813/"BRemove this field injection and use constructor injection instead.(êæÄÞ8û×ë›â2J$2c57ed9e-7541-488d-910b-6061e21e7781
 j
-java:S6857/"'Correct this malformed SpEL expression.(Ú˜Í–8ØÔ ™â2J$64ea8c3a-54d7-444f-90d2-7f0b3127d5ff
+java:S6857,"'Correct this malformed SpEL expression.(Ú˜Í–8ý×ë›â2J$b211f074-2acd-4740-b594-f6452ce9d9f2
+j
+java:S68574"'Correct this malformed SpEL expression.(íŒŒ¼8ý×ë›â2J$e231cc68-704b-4ba6-a916-649dc0d940f3
+~	java:S125]"<This block of commented-out lines of code should be removed.(åÿ€°8¸Ûÿ›â2J$a463496a-61f4-46b4-a705-d827a4568680
+›
+java:S3776†"RRefactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.(œþÆÆüÿÿÿÿ8‰Øë›â2J$4ecb2d20-3284-4d67-a9ff-708da686f17f
+}
+java:S1144†"4Remove this unused private "hasRequiredRole" method.(œþÆÆüÿÿÿÿ8½Ûÿ›â2J$6fce533d-ccc2-41af-885c-53e6def54695
