@@ -7,7 +7,7 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class MosipIomAdminServerTest
+public class AppTest 
     extends TestCase
 {
     /**
@@ -15,7 +15,7 @@ public class MosipIomAdminServerTest
      *
      * @param testName name of the test case
      */
-    public MosipIomAdminServerTest(String testName )
+    public AppTest( String testName )
     {
         super( testName );
     }
@@ -25,7 +25,7 @@ public class MosipIomAdminServerTest
      */
     public static Test suite()
     {
-        return new TestSuite( MosipIomAdminServerTest.class );
+        return new TestSuite( AppTest.class );
     }
 
     /**
