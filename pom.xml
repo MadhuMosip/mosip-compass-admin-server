@@ -118,11 +118,6 @@
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.junit.vintage</groupId>
-      <artifactId>junit-vintage-engine</artifactId>
-      <scope>test</scope>
-    </dependency>
     <!-- Spring Security OAuth2 Client (for optional login flows) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

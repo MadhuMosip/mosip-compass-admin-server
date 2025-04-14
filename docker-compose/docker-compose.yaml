@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./admin_server_init.sql:/docker-entrypoint-initdb.d/admin_server_init.sql
+    networks:
+      - mosip_network
+    ports:
+      - "5433:5432"
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.1
+    container_name: iam-keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL_HOST: database
+      KC_DB_URL_DATABASE: postgres
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+      KC_HOSTNAME: localhost
+    ports:
+      - "8180:8080"
+      - "8443:8443"
+    depends_on:
+      - database
+    networks:
+      - mosip_network
+    command: ["start-dev"]
+
+  admin-server:
+    image: mosipdev/iam-admin-server:refactoring
+    user: root
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: iam-admin-server
+    ports:
+      - "8091:8091"
+    environment:
+      - container_user=mosip
+      - active_profile_env=default
+      - SPRING_CONFIG_NAME=admin-server
+      - SPRING_CONFIG_LOCATION=/home/mosip/config/
+    volumes:
+      - ./config/application-default.properties:/app/config/application-default.properties
+    depends_on:
+      - database
+      - keycloak
+    networks:
+      - mosip_network
+
+networks:
+  mosip_network:
+    name: mosip_network
+    external: true
+
+volumes:
+  postgres_data:
+    driver: local
