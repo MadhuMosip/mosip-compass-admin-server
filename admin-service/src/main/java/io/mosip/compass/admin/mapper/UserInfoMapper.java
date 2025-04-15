@@ -14,6 +14,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface UserInfoMapper {
 
+    @Mapping(target = "userInfoId", ignore = true)
     @Mapping(target = "vcNum", ignore = true) // This is auto-generated
     @Mapping(target = "createdTimes", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "faceImageColor", source = "faceImageColor", qualifiedByName = "base64ToBinary")
@@ -22,7 +23,6 @@ public interface UserInfoMapper {
 
     @Mapping(target = "faceImageColor", source = "faceImageColor", qualifiedByName = "binaryToBase64")
     @Mapping(target = "faceImageGrey", source = "faceImageGrey", qualifiedByName = "binaryToBase64")
-
     UserInfoDTO toDto(UserInfo entity);
 
     @Mapping(source = "userInfoId", target = "userInfoId")

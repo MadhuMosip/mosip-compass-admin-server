@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserInfoDTO {
+
+    private String userInfoId;
     private String ppMrzTd3;
     private String ppNumber;
 
